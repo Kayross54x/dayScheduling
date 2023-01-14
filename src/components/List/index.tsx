@@ -1,30 +1,27 @@
-import React from 'react';
-import './style.scss';
+import { ITasks } from '../../types/ITask';
+import Item from './Item';
+import './Lista.module.scss';
 
+export interface IList {
+    tasks: ITasks[],
+    selectTask: (task: ITasks) => void
+}
 
-function List() {
-    const tarefas = [
-        {
-            name: "React",
-            time: "02:00:00"
-        },
-        {
-            name: "Javascript",
-            time: "01:00:00"
-        }
-    ];
+function List(props: IList) {
+    const { tasks, selectTask } = props;
 
     return (
         <aside className="listaTarefas">
             <h2>Estudos do dia</h2>
 
             <ul>
-                {tarefas.map((item, index) => {
+                {tasks.map((item) => {
                     return (
-                        <li key={index} className="item">
-                            <h3>{item.name}</h3>
-                            <span>{item.time}</span>
-                        </li>
+                        <Item 
+                            {...item}
+                            key={item.id}
+                            selectTask={selectTask}
+                        />
                     );
                 })}
             </ul>
